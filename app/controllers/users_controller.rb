@@ -13,14 +13,16 @@ class UsersController < ApplicationController
       flash[:success] = 'ユーザを登録しました。'
       redirect_to @user
     else
-      flash.now[:danger] = 'ユーザの登録に失敗しました。'
+      flash.now[:danwger] = 'ユーザの登録に失敗しました。'
       render :new
     end
   end
 
   def show
-    @user = User.find(params[:id])
     #お気に入りにしたレビューを表示する処理
+    @user = User.find(params[:id])
+    @likes = @user.likes
+    @review = Review.new
   end
   
   private

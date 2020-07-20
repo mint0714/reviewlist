@@ -1,2 +1,18 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1 class="d-flex align-items-center justify-content-center"><%= current_user.name%>さんのお気に入り一覧</h1>
+
+<div class="row">
+  <% @likes.each do |like| %>
+    <div class="card col-md-4 mb-3 p-0">
+      <div class="card-header">
+        <a href=<%= like.shop_url%>><%= like.shop_name%></a>
+      </div>
+      <div class="card-body">
+        <p>メニュー名：<%= like.menu_name%></p>
+        <img src="<%= like.image_url%>" alt="投稿画像" width="300" height="200">
+        <p class="mt-3"><%= like.comment%></p>
+        <%= like.update_date%>
+      </div>
+      <%= render "favorites/favorites_button", review: @review, review_data: like%>
+    </div>
+  <% end %>
+</div>

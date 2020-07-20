@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_195751) do
+ActiveRecord::Schema.define(version: 2020_07_14_125217) do
 
-  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "vote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "vote_id"], name: "index_favorites_on_user_id_and_vote_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+    t.index ["vote_id"], name: "index_favorites_on_vote_id"
+  end
+
+  create_table "reviews", primary_key: "vote_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "image_url"
     t.string "menu_name"
     t.text "shop_url"
@@ -31,4 +41,6 @@ ActiveRecord::Schema.define(version: 2020_07_08_195751) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "favorites", "reviews", column: "vote_id", primary_key: "vote_id"
+  add_foreign_key "favorites", "users"
 end

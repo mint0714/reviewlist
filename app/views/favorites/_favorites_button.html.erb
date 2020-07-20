@@ -1,0 +1,19 @@
+<% if logged_in? %>
+  <% unless current_user.likes.find_by(vote_id: review_data["vote_id"])%>
+    <%= form_with model: review, local: true do |f| %>
+      <%= hidden_field_tag :shop_url, review_data["shop_url"] %>
+      <%= hidden_field_tag :shop_name, review_data["shop_name"] %>
+      <%= hidden_field_tag :menu_name, review_data["menu_name"] %>
+      <%= hidden_field_tag :image_url, review_data["image_url"]["url_320"] %>
+      <%= hidden_field_tag :comment, review_data["comment"] %>
+      <%= hidden_field_tag :update_date, review_data["update_date"] %>
+      <%= hidden_field_tag :vote_id, review_data["vote_id"] %>
+      <%= f.submit 'お気に入り', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  <% else %>
+    <%= form_with model: review, local: true, method: :delete do |f| %>
+      <%= hidden_field_tag :vote_id, review_data["vote_id"] %>
+      <%= f.submit 'お気に入り解除', class: 'btn btn-danger btn-block' %>
+    <% end %>
+  <% end %>
+<% end %>
