@@ -40,7 +40,7 @@ class ReviewsController < ApplicationController
     end
      
     #レビューをお気に入りにする処理
-    current_user.favorite(review)
+    current_user.favorite(@review)
      
     flash[:success] = 'お気に入りに追加しました'
     redirect_back(fallback_location: root_path)
