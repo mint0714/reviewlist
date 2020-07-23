@@ -33,15 +33,15 @@ class ReviewsController < ApplicationController
   def create
     review = Review.find_by(vote_id: params[:vote_id])
     
-    #レビューを保存する処理
-    unless review
+    #レビューを保存、お気に入りにする処理
+    if review
+      current_user.favorite(review)
+    else
       @review = Review.create(vote_id: params[:vote_id],image_url: params[:image_url],menu_name: params[:menu_name],shop_url: params[:shop_url],update_date: params[:update_date],shop_name: params[:shop_name],comment: params[:comment])
       @review.save
+      current_user.favorite(@review)
     end
-     
-    #レビューをお気に入りにする処理
-    current_user.favorite(@review)
-     
+    
     flash[:success] = 'お気に入りに追加しました'
     redirect_back(fallback_location: root_path)
   end
