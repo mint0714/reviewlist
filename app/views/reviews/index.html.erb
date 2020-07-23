@@ -6,7 +6,7 @@
 </div>
 
 <% if @response_data.include?("gnavi") %>
-  <%= @response_data["gnavi"]["error"][0]["message"]%>
+  <p class="alert alert-danger" role="alert"><%= @response_data["gnavi"]["error"][0]["message"]%></p>
 <% else%>
   <div class="row">
     <% @response_data["response"].each.with_index do |(k,v),i| %>
