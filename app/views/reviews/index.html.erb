@@ -1,6 +1,7 @@
 <div class="d-flex align-items-center justify-content-center mb-3">
   <%= form_with url: "/", method: :get, local: true do |f| %>
-    <%= f.text_field :search %>
+    <%= f.text_field :search, placeholder: "検索ワード(例:ステーキ)"%>
+    <%= f.text_field :area, placeholder:"検索地域(例:銀座)"%>
     <%= f.submit "検索"%>
   <% end %>
 </div>
@@ -17,6 +18,7 @@
             <a href=<%= review_data["shop_url"]%>><%= review_data["shop_name"]%></a>
           </div>
           <div class="card-body">
+            <p>エリア：<%= review_data["prefname"].slice(7...11) %>,<%= review_data["areaname_s"] %></p>
             <p>メニュー名：<%= review_data["menu_name"]%></p>
             <img src="<%= review_data["image_url"]["url_320"]%>" alt="画像" width="300" height="200">
             <p class="mt-3"><%= review_data["comment"]%></p>

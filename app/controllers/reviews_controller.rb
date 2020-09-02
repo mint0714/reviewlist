@@ -10,16 +10,18 @@ class ReviewsController < ApplicationController
     keyword = params[:search]
     keyword ||= "美味しい"
     
-    if keyword == ""
-      keyword = "美味しい"
-    end
-  
+    area = params[:area]
+    
     param = {
       "keyid"         => "2591a7e3ba2c49fa50cf56339ec3441e",
       "comment"       => URI.encode(keyword),
       "hit_per_page"  => 50,
       "sort"          => 1
     }
+    
+    if area
+      param["area"] = URI.encode(area)
+    end
   
     uri = URI(API_BASE_URL + '?' + param.map{|k,v| "#{k}=#{v}"}.join('&'))
   
