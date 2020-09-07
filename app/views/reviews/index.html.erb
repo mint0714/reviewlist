@@ -7,7 +7,9 @@
 </div>
 
 <% if @response_data.include?("gnavi") %>
-  <p class="alert alert-danger" role="alert"><%= @response_data["gnavi"]["error"][0]["message"]%></p>
+  <script>
+    alert('ヒットする情報はありませんでした。')
+  </script>
 <% else%>
   <div class="row">
     <% @response_data["response"].each.with_index do |(k,v),i| %>
